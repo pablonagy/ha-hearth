@@ -616,6 +616,7 @@ export const RootSettingsSchema = v.looseObject({
 	swipe_navigation_mobile: OptionalFlag,
 	swipe_navigation_desktop: OptionalFlag,
 	phone_clock: OptionalFlag,
+	hide_page_nav: OptionalFlag,
 	padding_x: optionalNumberAtLeast(0),
 	padding_y: optionalNumberAtLeast(0),
 	mobile_padding_x: optionalNumberAtLeast(0),

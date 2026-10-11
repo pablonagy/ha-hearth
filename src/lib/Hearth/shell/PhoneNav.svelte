@@ -29,6 +29,12 @@
 	// still tick every second
 	const narrow = mediaQuery(FOLD_QUERY);
 
+	// a single-page dashboard can drop the page buttons; edit mode keeps them,
+	// since they are where pages are added and picked for editing
+	let showPages = $derived(!$hearthConfig.hide_page_nav || $hearthEditMode);
+	let showClock = $derived(!!$hearthConfig.phone_clock && (always || $narrow));
+	let showSearch = $derived(hasSearch && !$hearthEditMode);
+
 	// a page picked from search or a ?room= link can sit past the strip's edge
 	let pills: Record<string, HTMLButtonElement | undefined> = {};
 	$effect(() => {
@@ -40,12 +46,17 @@
 	});
 </script>
 
-<nav class="phone-nav" class:always aria-label={$lang('hearth_pages')}>
-	{#if $hearthConfig.phone_clock && (always || $narrow)}
+<nav
+	class="phone-nav"
+	class:always
+	class:empty={!showPages && !showClock && !showSearch}
+	aria-label={$lang('hearth_pages')}
+>
+	{#if showClock}
 		<PhoneClock />
 	{/if}
-	<div class="pages">
-		{#if $favoritesPageOffered && $narrow && !$hearthEditMode}
+	<div class="pages" class:hidden={!showPages}>
+		{#if showPages && $favoritesPageOffered && $narrow && !$hearthEditMode}
 			<!-- this browser's own list, ahead of the shared pages -->
 			<button
 				type="button"
@@ -58,7 +69,7 @@
 				<span>{$lang('hearth_favorites')}</span>
 			</button>
 		{/if}
-		{#each $navigablePages as room (room.id)}
+		{#each showPages ? $navigablePages : [] as room (room.id)}
 			<button
 				type="button"
 				class="page pressable"
@@ -84,7 +95,7 @@
 			</button>
 		{/if}
 	</div>
-	{#if hasSearch && !$hearthEditMode}
+	{#if showSearch}
 		<button type="button" class="search pressable" aria-label={$lang('search')} onclick={onsearch}>
 			<Icon name="search" size={ICON.control} />
 		</button>
@@ -94,6 +105,16 @@
 <style>
 	.phone-nav {
 		display: none;
+	}
+
+	/* nothing left to show: no strip, at any width */
+	.phone-nav.empty {
+		display: none !important;
+	}
+
+	/* keeps the search button at the end when the page buttons are hidden */
+	.pages.hidden {
+		visibility: hidden;
 	}
 
 	/* above the fold there is no scroller to stick in or screen edge to bleed

@@ -75,6 +75,7 @@
 	let swipeMobile = $derived($hearthConfig.swipe_navigation_mobile ?? false);
 	let swipeDesktop = $derived($hearthConfig.swipe_navigation_desktop ?? false);
 	let phoneClock = $derived($hearthConfig.phone_clock ?? false);
+	let hidePageNav = $derived($hearthConfig.hide_page_nav ?? false);
 	let paddingX = $derived($hearthConfig.padding_x ?? 0);
 	let paddingY = $derived($hearthConfig.padding_y ?? 0);
 	let mobilePaddingX = $derived($hearthConfig.mobile_padding_x ?? paddingX);
@@ -458,6 +459,12 @@
 		});
 	}
 
+	function setHidePageNav(enabled: boolean) {
+		updateConfig((config) => {
+			config.hide_page_nav = enabled ? true : undefined;
+		});
+	}
+
 	type PaddingKey = 'padding_x' | 'padding_y' | 'mobile_padding_x' | 'mobile_padding_y';
 
 	function setPadding(axis: PaddingKey, value: string, shown: number) {
@@ -746,6 +753,16 @@
 						checked={swipeDesktop}
 						label={$lang('hearth_swipe_between_pages_on_wide_screens')}
 						onchange={(enabled) => setSwipe('swipe_navigation_desktop', enabled)}
+					/>
+				</SettingsRow>
+				<SettingsRow
+					label={$lang('hearth_hide_page_buttons')}
+					sub={$lang('hearth_for_single_page_dashboards')}
+				>
+					<Switch
+						checked={hidePageNav}
+						label={$lang('hearth_hide_page_buttons')}
+						onchange={setHidePageNav}
 					/>
 				</SettingsRow>
 				<SettingsRow

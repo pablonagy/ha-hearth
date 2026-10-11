@@ -473,6 +473,8 @@ export interface HearthConfig {
 	swipe_navigation_desktop?: boolean;
 	// a small time and date at the start of the phone page strip
 	phone_clock?: boolean;
+	// hides the page buttons outside edit mode, for single-page dashboards
+	hide_page_nav?: boolean;
 	// extra edge padding in px, for kiosks whose frame covers screen edges
 	padding_x?: number;
 	padding_y?: number;

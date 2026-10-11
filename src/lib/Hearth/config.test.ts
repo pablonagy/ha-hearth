@@ -502,6 +502,17 @@ describe('wall tablet settings', () => {
 		expect(normalizeHearthConfig(raw).theme).toEqual({ accent: '#ff8800', text_2: '#ddd' });
 	});
 
+	it('hides the page buttons only when turned on', () => {
+		const base = { rail: [], rooms: [] };
+		expect(normalizeHearthConfig({ ...base, hide_page_nav: true }).hide_page_nav).toBe(true);
+		expect(normalizeHearthConfig({ ...base, hide_page_nav: false }).hide_page_nav).toBeUndefined();
+		expect(normalizeHearthConfig(base)).not.toHaveProperty('hide_page_nav', expect.anything());
+		expect(hearthConfigIssues({ ...base, hide_page_nav: true })).toEqual([]);
+		expect(hearthConfigIssues({ ...base, hide_page_nav: 'yes' })).toEqual([
+			'hide_page_nav must be true or false'
+		]);
+	});
+
 	it('keeps the phone strip clock only when turned on', () => {
 		const base = { rail: [], rooms: [] };
 		expect(normalizeHearthConfig({ ...base, phone_clock: true }).phone_clock).toBe(true);

@@ -69,6 +69,31 @@ describe('PhoneNav', () => {
 		expect(searchButton()).toBeNull();
 	});
 
+	it('hides the page buttons when turned off, but keeps them while editing', async () => {
+		const pageButton = () => screen.queryByRole('button', { name: 'Home' });
+		configure([], { hide_page_nav: true });
+		const { container } = render(PhoneNav, { onsearch: () => {}, always: true });
+		expect(pageButton()).toBeNull();
+		// nothing else to show, so the strip takes no room
+		expect(container.querySelector('.phone-nav')?.classList.contains('empty')).toBe(true);
+
+		await act(() => hearthEditMode.set(true));
+		try {
+			expect(pageButton()).not.toBeNull();
+			expect(container.querySelector('.phone-nav')?.classList.contains('empty')).toBe(false);
+		} finally {
+			hearthEditMode.set(false);
+		}
+	});
+
+	it('keeps the strip for search when the page buttons are hidden', () => {
+		configure([{ id: 'search', type: 'search' }], { hide_page_nav: true });
+		const { container } = render(PhoneNav, { onsearch: () => {}, always: true });
+		expect(screen.queryByRole('button', { name: 'Home' })).toBeNull();
+		expect(screen.queryByRole('button', { name: en.search })).not.toBeNull();
+		expect(container.querySelector('.phone-nav')?.classList.contains('empty')).toBe(false);
+	});
+
 	it('scrolls the active page into view when the page changes elsewhere', async () => {
 		configure([]);
 		render(PhoneNav, { onsearch: () => {} });

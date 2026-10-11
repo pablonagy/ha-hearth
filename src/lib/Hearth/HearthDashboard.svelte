@@ -411,7 +411,7 @@
 
 {#snippet railColumn(side: RailSide)}
 	<div class="rail-scroll">
-		{#if !railHasNav && side === builtInNavSide}
+		{#if !railHasNav && side === builtInNavSide && (!$hearthConfig.hide_page_nav || $hearthEditMode)}
 			<NavWidget widget={BUILT_IN_NAV} />
 		{/if}
 		<!-- a single rail holds every widget, whatever side it was given -->

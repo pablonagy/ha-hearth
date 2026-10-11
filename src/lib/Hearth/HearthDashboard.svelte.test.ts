@@ -128,6 +128,19 @@ describe('HearthDashboard navigation', () => {
 		expect(layout()?.classList.contains('no-strip')).toBe(false);
 	});
 
+	it('puts the edit buttons at the end of the page when there is no rail column', async () => {
+		hearthConfig.set({ ...withRooms([]), rail_position: 'none' });
+		const { container } = render(HearthDashboard);
+		const entry = () => container.querySelector('.edit-entry');
+		expect(entry()?.classList.contains('inline')).toBe(true);
+		expect(entry()?.closest('.main')).not.toBeNull();
+
+		// beside a rail they stay at its foot, clear of the cards
+		await act(() => hearthConfig.set(withRooms([{ id: 'clock', type: 'clock' }])));
+		expect(entry()?.classList.contains('inline')).toBe(false);
+		expect(entry()?.closest('.main')).toBeNull();
+	});
+
 	it('builds the page list into a wide rail that has no visible nav widget', async () => {
 		hearthConfig.set(withRooms([{ id: 'clock', type: 'clock' }]));
 		const { container } = render(HearthDashboard);

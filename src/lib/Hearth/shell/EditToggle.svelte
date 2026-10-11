@@ -19,6 +19,13 @@
 
 	// the toggle sits at the rail's foot, so a lone right rail takes it along
 	let toggleRight = $derived(railPositionOf($hearthConfig) === 'right');
+
+	/**
+	 * `inline` places the buttons in the page's flow, at its end, instead of
+	 * floating at the screen's foot, for layouts with no rail column to sit
+	 * under, where they would cover the cards.
+	 */
+	let { inline = false }: { inline?: boolean } = $props();
 	// edit_lock stops a stray tap on a wall tablet, not a person who means it
 	let lock = $derived(editLockOf($hearthConfig));
 
@@ -116,7 +123,7 @@
 	});
 </script>
 
-<div class="edit-entry" class:right={toggleRight}>
+<div class="edit-entry" class:right={toggleRight && !inline} class:inline>
 	{#if !$hearthLoadError}
 		<button
 			type="button"
@@ -187,6 +194,13 @@
 		display: flex;
 		align-items: center;
 		gap: 6px;
+	}
+
+	/* in the page's flow: after the last card, scrolled to like any of them */
+	.edit-entry.inline {
+		position: static;
+		margin-top: 24px;
+		padding-bottom: calc(var(--h-pad-y) + var(--h-safe-bottom));
 	}
 
 	/* see breakpoints.ts: folded, there is no rail column to follow */

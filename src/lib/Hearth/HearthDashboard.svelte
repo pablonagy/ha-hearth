@@ -304,6 +304,10 @@
 	// ?menu=false hides the edit-toggle pencil for kiosk frames; edit mode
 	// stays reachable if already active, it just can't be entered from here
 	let hideEditToggle = $state(false);
+	// with no rail column to sit under (no rail, or a folded phone layout) the
+	// edit and this-screen buttons would float over the cards, so they go at
+	// the end of the page instead: reachable, but out of the way day to day
+	let inlineEditEntry = $derived(!hideEditToggle && ($narrow || railPosition === 'none'));
 
 	/*
 	 * The page on screen is kept in ?room= so a reload or a shared link lands
@@ -411,6 +415,9 @@
 			{:else}
 				<RoomDetail roomId={activeRoomId} fillScreen={activeRoom?.fill_screen ?? false} />
 			{/if}
+			{#if inlineEditEntry && !$narrow && !$hearthEditMode}
+				<EditToggle inline />
+			{/if}
 		</main>
 		{#if edgeBlur}
 			<ScrollEdge edge="top" size={96} active={mainCut.top} />
@@ -463,9 +470,12 @@
 			{/if}
 			{@render pageColumn()}
 			<!-- kept without a rail too: its padding is the room under the page -->
-			<div class="rail-run trailing">
+			<div class="rail-run trailing" class:inline-entry={inlineEditEntry}>
 				{#if railPosition !== 'none'}
 					<Rail mobileSlot="bottom" compact={$shortScreen} onsearch={openSearch} />
+				{/if}
+				{#if inlineEditEntry && !$hearthEditMode}
+					<EditToggle inline />
 				{/if}
 			</div>
 		{:else}
@@ -531,7 +541,7 @@
 		{#if editorHostFailed || editBarFailed}
 			<EditLoadError onretry={() => (editAttempt += 1)} />
 		{/if}
-	{:else if !hideEditToggle}
+	{:else if !hideEditToggle && !inlineEditEntry}
 		<EditToggle />
 	{/if}
 </section>
@@ -704,7 +714,7 @@
 
 	/* with no rail the floating edit toggle sits over the foot of the page */
 	.layout:not(.narrow)[data-rail='none'] .main {
-		padding-bottom: 80px; /* literal ok: toggle height plus margin */
+		padding-bottom: 8px; /* literal ok: the edit buttons scroll with the page here */
 	}
 
 	.main::-webkit-scrollbar {
@@ -798,5 +808,10 @@
 	/* room for the floating edit toggle over the foot of the page */
 	.rail-run.trailing {
 		padding-bottom: 80px; /* literal ok: toggle height plus margin */
+	}
+
+	/* the buttons sit in the page's flow here, so no room is kept for them */
+	.rail-run.trailing.inline-entry {
+		padding-bottom: 0;
 	}
 </style>

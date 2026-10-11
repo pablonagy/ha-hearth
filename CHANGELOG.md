@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.2] - 2026-10-11
+
+### Fixed
+
+- Let the page fill the screen when the page buttons are hidden and the rail is off ([`7ee7c60`](https://github.com/pablonagy/ha-hearth/commit/7ee7c60))
+
 ## [0.7.1] - 2026-10-11
 
 ### Added
@@ -268,6 +274,7 @@
 
 - Make blur work everywhere in the application
 
+[0.7.2]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.2
 [0.7.1]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.1
 [0.7.0]: https://github.com/knowald/ha-hearth/releases/tag/0.7.0
 [0.6.0]: https://github.com/knowald/ha-hearth/releases/tag/0.6.0

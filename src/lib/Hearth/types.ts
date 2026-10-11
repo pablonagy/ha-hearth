@@ -220,6 +220,10 @@ type OverviewCardVariant =
 			height?: number;
 			shortcuts?: MediaShortcut[];
 			default_device?: string;
+			// previous and next track beside play, when the player supports them
+			show_track_buttons?: boolean;
+			// a volume slider under the progress bar, when the player supports it
+			show_volume?: boolean;
 	  }
 	// battery_entity and bin_entity add readings to the popover status line for
 	// integrations that expose them as separate entities; battery falls back to

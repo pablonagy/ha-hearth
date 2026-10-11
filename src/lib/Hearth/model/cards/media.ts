@@ -1,6 +1,6 @@
 import * as v from 'valibot';
 import type { MediaShortcut, OverviewCard } from '../../types';
-import { MediaShortcutSchema, OptionalEntityId, OptionalText } from '../../schema';
+import { MediaShortcutSchema, OptionalEntityId, OptionalFlag, OptionalText } from '../../schema';
 import { trimmedOrUndefined } from '../../normalizers';
 import type { CardDefinition } from '../types';
 
@@ -28,12 +28,16 @@ export const mediaCard: CardDefinition<MediaCard> = {
 						image_url: trimmedOrUndefined(entry.image_url)
 					}))
 			: undefined,
-		default_device: trimmedOrUndefined(card.default_device)
+		default_device: trimmedOrUndefined(card.default_device),
+		show_track_buttons: card.show_track_buttons === true ? true : undefined,
+		show_volume: card.show_volume === true ? true : undefined
 	}),
 	schema: v.looseObject({
 		entity: OptionalEntityId,
 		shortcuts: v.optional(v.array(MediaShortcutSchema, 'must be a list')),
-		default_device: OptionalText
+		default_device: OptionalText,
+		show_track_buttons: OptionalFlag,
+		show_volume: OptionalFlag
 	}),
 	needsConfiguration: (card) => !card.entity,
 	entityIds: (card) => (card.entity ? [card.entity] : [])

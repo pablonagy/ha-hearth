@@ -18,6 +18,18 @@
 	const form = new EditorForm(initial, [
 		{ key: 'entity', kind: 'entity', required: true, domains: ['media_player'] },
 		{
+			key: 'show_track_buttons',
+			kind: 'check',
+			label: 'hearth_track_buttons_on_the_card',
+			hint: 'hearth_previous_and_next_beside_play'
+		},
+		{
+			key: 'show_volume',
+			kind: 'check',
+			label: 'hearth_volume_on_the_card',
+			hint: 'hearth_a_volume_slider_under_the_progress'
+		},
+		{
 			key: 'default_device',
 			kind: 'text',
 			label: 'hearth_default_device',

@@ -1,9 +1,10 @@
 # Changelog
 
-## Unreleased
+## [0.7.1] - 2026-10-11
 
 ### Added
 
+- Hide the page buttons with a new setting, for dashboards with a single page ([`757e957`](https://github.com/pablonagy/ha-hearth/commit/757e957))
 - Show a live preview of the sleep screen in Settings, with a button to see it full screen ([#33](https://github.com/knowald/ha-hearth/pull/33))
 - Stack the sleep clock digits, pick a clock font and move the clock anywhere on the screen ([#33](https://github.com/knowald/ha-hearth/pull/33))
 - Hide the sleep clock, show seconds or use a different hour format than the sidebar clock ([#33](https://github.com/knowald/ha-hearth/pull/33))
@@ -267,6 +268,7 @@
 
 - Make blur work everywhere in the application
 
+[0.7.1]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.1
 [0.7.0]: https://github.com/knowald/ha-hearth/releases/tag/0.7.0
 [0.6.0]: https://github.com/knowald/ha-hearth/releases/tag/0.6.0
 [0.5.1]: https://github.com/knowald/ha-hearth/releases/tag/0.5.1

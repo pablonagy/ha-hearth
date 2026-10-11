@@ -149,6 +149,12 @@
 			label: 'hearth_header_actions_for_groups_all_off',
 			default: true
 		},
+		{
+			key: 'group_on',
+			kind: 'check',
+			label: 'hearth_all_on_beside_all_off',
+			show: (values) => values.group_actions !== false
+		},
 		{ key: 'tune_button', kind: 'check', label: 'hearth_controls_glyph_on_tiles_long_press' },
 		{ key: 'readonly', kind: 'check', label: 'hearth_display_only_no_tile_ever_sends' },
 		{

@@ -23,6 +23,7 @@ export const entitiesCard: CardDefinition<EntitiesCard> = {
 		// tri-state: a titled section counts by default, false opts out
 		show_count: typeof card.show_count === 'boolean' ? card.show_count : undefined,
 		group_actions: card.group_actions === false ? false : undefined,
+		group_on: card.group_on === true ? true : undefined,
 		tune_button: card.tune_button === true ? true : undefined,
 		vertical_padding: card.vertical_padding === 'compact' ? 'compact' : undefined,
 		readonly: card.readonly === true ? true : undefined,
@@ -42,6 +43,7 @@ export const entitiesCard: CardDefinition<EntitiesCard> = {
 		columns: v.optional(v.pipe(v.number('must be a number'), v.minValue(1, 'must be at least 1'))),
 		show_count: OptionalFlag,
 		group_actions: OptionalFlag,
+		group_on: OptionalFlag,
 		tune_button: OptionalFlag,
 		vertical_padding: v.optional(v.picklist(['compact'], 'must be compact')),
 		readonly: OptionalFlag,

@@ -41,3 +41,30 @@ describe('entities card group actions', () => {
 		expect(setAllCovers).toHaveBeenCalledWith(['cover.blind', 'cover.garage'], true);
 	});
 });
+
+describe('entities card All on', () => {
+	it('offers All on beside All off only when turned on, and switches everything on', async () => {
+		const spy = vi.spyOn(await import('$lib/core/ha/commands'), 'service');
+		states.set({
+			'light.desk': hassEntity('light.desk', 'off', { friendly_name: 'Desk' }),
+			'light.lamp': hassEntity('light.lamp', 'off', { friendly_name: 'Lamp' })
+		});
+		const card = {
+			id: 'l',
+			type: 'entities' as const,
+			title: 'Lights',
+			entities: [{ entity: 'light.desk' }, { entity: 'light.lamp' }]
+		};
+		const { unmount } = render(Card, { card });
+		expect(screen.queryByText('All on')).toBeNull();
+		expect(screen.queryByText('All off')).not.toBeNull();
+		unmount();
+
+		render(Card, { card: { ...card, group_on: true } });
+		await fireEvent.click(screen.getByText('All on'));
+		expect(spy).toHaveBeenCalledWith('homeassistant', 'turn_on', {
+			entity_id: ['light.desk', 'light.lamp']
+		});
+		spy.mockRestore();
+	});
+});

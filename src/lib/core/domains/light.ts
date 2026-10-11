@@ -126,3 +126,14 @@ export function turnAllOff(entityIds: string[]) {
 	}
 	service('homeassistant', 'turn_off', { entity_id: targets });
 }
+
+/** Header verb beside All off: everything listed goes on in one call. */
+export function turnAllOn(entityIds: string[]) {
+	const targets = entityIds.filter((entityId) => entityControllable(get(states)?.[entityId]));
+	if (!targets.length) return;
+	for (const entityId of targets) {
+		setControlOverride(`active:${entityId}`, 1);
+		markPending(entityId);
+	}
+	service('homeassistant', 'turn_on', { entity_id: targets });
+}

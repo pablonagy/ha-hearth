@@ -85,6 +85,8 @@
 	"hearth_alerts_sub": "Muestra un mensaje cuando las entidades permanecen en un estado",
 	"hearth_all_day": "todo el día",
 	"hearth_all_off": "Apagar todo",
+	"hearth_all_on": "Encender todo",
+	"hearth_all_on_beside_all_off": "Encender todo junto a Apagar todo",
 	"hearth_already_added": "Agregado",
 	"hearth_always_visible": "Siempre visible",
 	"hearth_any_of": "Cualquiera de",

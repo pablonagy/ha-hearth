@@ -85,6 +85,8 @@
 	"hearth_alerts_sub": "Pop up a message when entities stay in a state",
 	"hearth_all_day": "all day",
 	"hearth_all_off": "All off",
+	"hearth_all_on": "All on",
+	"hearth_all_on_beside_all_off": "All on beside All off",
 	"hearth_already_added": "Added",
 	"hearth_always_visible": "Always visible",
 	"hearth_any_of": "Any of",

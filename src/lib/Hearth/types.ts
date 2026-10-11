@@ -252,6 +252,8 @@ type OverviewCardVariant =
 			// header verbs (All off / Open all / Close all) render automatically
 			// for multi-light and multi-cover grids; false hides them
 			group_actions?: boolean;
+			// adds All on beside All off for switchable groups; off by default
+			group_on?: boolean;
 			// restores the per-tile controls glyph for surfaces where the
 			// long-press gesture is unwanted
 			tune_button?: boolean;

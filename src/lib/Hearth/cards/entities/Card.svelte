@@ -16,7 +16,7 @@
 	import { entityGroupSummary } from '$lib/core/ha/entities';
 	import { formatGroupSummary } from '../../groupSummary';
 	import { guardCoverMotion, setAllCovers } from '$lib/core/domains/cover';
-	import { turnAllOff } from '$lib/core/domains/light';
+	import { turnAllOff, turnAllOn } from '$lib/core/domains/light';
 	import AnchoredPopover from '../../AnchoredPopover.svelte';
 	import EmptyState from '../../EmptyState.svelte';
 	import EntityGrid from '../../EntityGrid.svelte';
@@ -222,6 +222,17 @@
 				{/if}
 				<div class="section-spacer"></div>
 				<div class="section-actions">
+					{#if showGroupActions && card.group_on && switchableIds.length > 1}
+						<button
+							type="button"
+							class="group-action pressable"
+							use:Ripple={PRESS_RIPPLE}
+							onclick={() => turnAllOn(switchableIds)}
+						>
+							<Icon name="lightbulb" size={ICON.inline} />
+							{$lang('hearth_all_on')}
+						</button>
+					{/if}
 					{#if showGroupActions && switchableIds.length > 1}
 						<button
 							type="button"

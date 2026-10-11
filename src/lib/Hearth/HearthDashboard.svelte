@@ -32,7 +32,8 @@
 		conditionsHeldAtMost,
 		conditionsHold,
 		mediaQueriesIn,
-		railWidgetShown
+		railWidgetShown,
+		searchAvailable
 	} from './visibility';
 	import { navigablePages, showPage } from './pages';
 	import type { AlertHost } from './alertEngine';
@@ -123,6 +124,15 @@
 	// rides above it there unless a widget asked for that slot by name
 	const shortScreen = mediaQuery(SHORT_QUERY);
 	let railPosition = $derived(railPositionOf($hearthConfig));
+	// with no rail, the page switcher has its own row above the page; when the
+	// page buttons are hidden and nothing else sits in it, the page takes it
+	let pageStripEmpty = $derived(
+		railPosition === 'none' &&
+			!$hearthEditMode &&
+			$hearthConfig.hide_page_nav === true &&
+			!$hearthConfig.phone_clock &&
+			!searchAvailable($hearthConfig.rail, $states, false)
+	);
 	let leadingWidgets = $derived(
 		foldedTopCount(foldedRail($hearthConfig.rail, railPosition), {
 			editing: $hearthEditMode,
@@ -439,6 +449,7 @@
 		class="layout"
 		class:editing={$hearthEditMode}
 		class:narrow={$narrow}
+		class:no-strip={pageStripEmpty}
 		data-rail={wideLayout}
 		bind:this={layoutElement}
 		use:scrollEdges={{ report: (edges) => (layoutCut = edges) }}
@@ -658,6 +669,11 @@
 	.layout[data-rail='none'] {
 		grid-template-columns: 1fr;
 		grid-template-rows: auto minmax(0, 1fr);
+	}
+
+	/* page buttons hidden and nothing else in their row: the page fills it */
+	.layout[data-rail='none'].no-strip {
+		grid-template-rows: minmax(0, 1fr);
 	}
 
 	.rail-scroll::-webkit-scrollbar {

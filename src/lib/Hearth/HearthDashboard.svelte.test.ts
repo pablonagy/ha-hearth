@@ -101,6 +101,33 @@ describe('HearthDashboard navigation', () => {
 		expect(screen.queryByRole('dialog', { name: en.search })).toBeNull();
 	});
 
+	it('gives the page the switcher row when the page buttons are hidden and the rail is off', async () => {
+		hearthConfig.set({ ...withRooms([]), rail_position: 'none', hide_page_nav: true });
+		const { container } = render(HearthDashboard);
+		const layout = () => container.querySelector('.layout');
+		expect(layout()?.classList.contains('no-strip')).toBe(true);
+		expect(container.querySelector('.layout .phone-nav button')).toBeNull();
+
+		// editing brings the page buttons back, and with them their row
+		await act(() => hearthEditMode.set(true));
+		try {
+			expect(layout()?.classList.contains('no-strip')).toBe(false);
+		} finally {
+			hearthEditMode.set(false);
+		}
+
+		// a clock keeps the row
+		await act(() =>
+			hearthConfig.set({
+				...withRooms([]),
+				rail_position: 'none',
+				hide_page_nav: true,
+				phone_clock: true
+			})
+		);
+		expect(layout()?.classList.contains('no-strip')).toBe(false);
+	});
+
 	it('builds the page list into a wide rail that has no visible nav widget', async () => {
 		hearthConfig.set(withRooms([{ id: 'clock', type: 'clock' }]));
 		const { container } = render(HearthDashboard);

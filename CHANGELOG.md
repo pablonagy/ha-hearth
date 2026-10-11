@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.6] - 2026-10-11
+
+### Added
+
+- Add an All on button beside All off on lights and switches sections, as a card option ([`5cfa0c1`](https://github.com/pablonagy/ha-hearth/commit/5cfa0c1))
+
 ## [0.7.5] - 2026-10-11
 
 ### Fixed
@@ -292,6 +298,7 @@
 
 - Make blur work everywhere in the application
 
+[0.7.6]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.6
 [0.7.5]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.5
 [0.7.4]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.4
 [0.7.3]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.3

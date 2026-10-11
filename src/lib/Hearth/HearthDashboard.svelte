@@ -124,14 +124,16 @@
 	// rides above it there unless a widget asked for that slot by name
 	const shortScreen = mediaQuery(SHORT_QUERY);
 	let railPosition = $derived(railPositionOf($hearthConfig));
-	// with no rail, the page switcher has its own row above the page; when the
-	// page buttons are hidden and nothing else sits in it, the page takes it
+	// the page switcher shows with no rail and on folded (phone) layouts, where
+	// it also carries the top inset; when the page buttons are hidden and
+	// nothing else sits in it (see PhoneNav), the page takes its row and the
+	// layout carries that inset instead
 	let pageStripEmpty = $derived(
-		railPosition === 'none' &&
+		(railPosition === 'none' || $narrow) &&
 			!$hearthEditMode &&
 			$hearthConfig.hide_page_nav === true &&
 			!$hearthConfig.phone_clock &&
-			!searchAvailable($hearthConfig.rail, $states, false)
+			!searchAvailable($hearthConfig.rail, $states, railPosition !== 'none')
 	);
 	let leadingWidgets = $derived(
 		foldedTopCount(foldedRail($hearthConfig.rail, railPosition), {
@@ -774,6 +776,13 @@
 		/* inside the Home Assistant app this scroller sits in a webview that
 		   scrolls too - keep the rubber band here */
 		overscroll-behavior-y: contain;
+	}
+
+	/* no page switcher to carry the top inset: the layout keeps the same room
+	   above the first card as it does below the last */
+	.layout.narrow.no-strip {
+		padding-top: calc(16px + var(--h-pad-y) + var(--h-safe-top));
+		scroll-padding-top: calc(16px + var(--h-safe-top));
 	}
 
 	/* the edit bar floats over the scroll container; leave room under the

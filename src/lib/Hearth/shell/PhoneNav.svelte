@@ -143,8 +143,8 @@
 			/* the layout leaves no room above the strip, so the top inset is the
 			   strip's to carry; the sides match the layout's own padding so the
 			   pills line up with the cards under them */
-			padding: calc(8px + var(--h-safe-top)) var(--h-fold-pad-right, var(--h-pad-x)) 8px
-				var(--h-fold-pad-left, var(--h-pad-x));
+			padding: calc(8px + var(--h-pad-y) + var(--h-safe-top))
+				var(--h-fold-pad-right, var(--h-pad-x)) 8px var(--h-fold-pad-left, var(--h-pad-x));
 			/* opaque: the page passing behind a translucent strip shows through
 			   the pills, which reads as a smudge */
 			background: var(--h-bg-1);

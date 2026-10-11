@@ -514,6 +514,13 @@
 		position: relative;
 	}
 
+	/* a titled section starts a new group: it gets a little more room above it
+	   than the gap between cards, except at the top of a column, where the
+	   column's own spacing already gives it that room */
+	.column > .card-slot:not(:first-child) > :global(.section) > :global(.section-header) {
+		padding-top: 8px;
+	}
+
 	/* a filling slot starts at its content height and takes its share of the
 	   column's leftover on top - basis 0 would let a tall neighbouring column
 	   compress the card below its content and paint the chart past the card.

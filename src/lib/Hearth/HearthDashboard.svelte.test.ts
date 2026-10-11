@@ -128,6 +128,19 @@ describe('HearthDashboard navigation', () => {
 		expect(layout()?.classList.contains('no-strip')).toBe(false);
 	});
 
+	it('carries the top inset itself on a phone when the page buttons are hidden', () => {
+		vi.stubGlobal('matchMedia', (query: string) => ({
+			matches: query.includes('max-width'),
+			addEventListener() {},
+			removeEventListener() {}
+		}));
+		hearthConfig.set({ ...withRooms([{ id: 'clock', type: 'clock' }]), hide_page_nav: true });
+		const { container } = render(HearthDashboard);
+		const layout = container.querySelector('.layout');
+		expect(layout?.classList.contains('narrow')).toBe(true);
+		expect(layout?.classList.contains('no-strip')).toBe(true);
+	});
+
 	it('puts the edit buttons at the end of the page when there is no rail column', async () => {
 		hearthConfig.set({ ...withRooms([]), rail_position: 'none' });
 		const { container } = render(HearthDashboard);

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.7] - 2026-10-11
+
+### Fixed
+
+- Keep room above the first cards on phones when the page buttons are hidden, and apply the top and bottom padding setting there ([`8657f4d`](https://github.com/pablonagy/ha-hearth/commit/8657f4d))
+- Give titled sections more room above them, except at the top of a column ([`8657f4d`](https://github.com/pablonagy/ha-hearth/commit/8657f4d))
+
 ## [0.7.6] - 2026-10-11
 
 ### Added
@@ -298,6 +305,7 @@
 
 - Make blur work everywhere in the application
 
+[0.7.7]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.7
 [0.7.6]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.6
 [0.7.5]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.5
 [0.7.4]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.4

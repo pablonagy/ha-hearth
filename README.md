@@ -109,6 +109,10 @@ For contributors: [development](docs/development.md), [architecture](docs/archit
 
 [MIT](LICENSE). Copyright Kevin Nowald. Hearth includes code from ha-fusion, copyright Mattias Persson.
 
+## About this copy
+
+This repository is an independent copy of [knowald/ha-hearth](https://github.com/knowald/ha-hearth) by Kevin Nowald, maintained by [@pablonagy](https://github.com/pablonagy) so it can be customised for a personal Home Assistant setup. The original license and copyright notices are kept. Credit for Hearth belongs to its original author.
+
 ## Thanks
 
 Hearth started as a rework of [ha-fusion](https://github.com/matt8707/ha-fusion) by matt8707 and grew into its own dashboard. Thank you for the project that made Hearth possible. A maintained continuation of the original lives at [knowald/ha-fusion](https://github.com/knowald/ha-fusion).

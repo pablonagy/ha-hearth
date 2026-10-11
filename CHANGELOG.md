@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.5] - 2026-10-11
+
+### Fixed
+
+- Keep the media card's track buttons legible over bright album art ([`b5c2bbc`](https://github.com/pablonagy/ha-hearth/commit/b5c2bbc))
+
 ## [0.7.4] - 2026-10-11
 
 ### Added
@@ -286,6 +292,7 @@
 
 - Make blur work everywhere in the application
 
+[0.7.5]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.5
 [0.7.4]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.4
 [0.7.3]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.3
 [0.7.2]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.2

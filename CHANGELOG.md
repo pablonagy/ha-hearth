@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.4] - 2026-10-11
+
+### Added
+
+- Show previous and next track buttons and a volume slider on the media card, as two card options ([`a49e9a0`](https://github.com/pablonagy/ha-hearth/commit/a49e9a0))
+
 ## [0.7.3] - 2026-10-11
 
 ### Changed
@@ -280,6 +286,7 @@
 
 - Make blur work everywhere in the application
 
+[0.7.4]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.4
 [0.7.3]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.3
 [0.7.2]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.2
 [0.7.1]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.1

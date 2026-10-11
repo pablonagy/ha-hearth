@@ -326,7 +326,8 @@
 		padding: 0;
 		font: inherit;
 		border-radius: var(--h-radius-pill);
-		background: transparent;
+		/* a dark disc keeps the glyph legible over bright album art */
+		background: var(--h-art-scrim-1);
 		color: var(--h-on-art-1);
 		display: flex;
 		align-items: center;

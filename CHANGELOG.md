@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.3] - 2026-10-11
+
+### Changed
+
+- Put the edit and This screen buttons at the end of the page when there is no rail beside it, such as on phones, so they no longer cover the cards ([`2618c09`](https://github.com/pablonagy/ha-hearth/commit/2618c09))
+
 ## [0.7.2] - 2026-10-11
 
 ### Fixed
@@ -274,6 +280,7 @@
 
 - Make blur work everywhere in the application
 
+[0.7.3]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.3
 [0.7.2]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.2
 [0.7.1]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.1
 [0.7.0]: https://github.com/knowald/ha-hearth/releases/tag/0.7.0

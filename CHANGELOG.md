@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.7.9] - 2026-10-11
+
+### Changed
+
+- Centre the page at up to 1200px wide on large screens ([`9200b9f`](https://github.com/pablonagy/ha-hearth/commit/9200b9f))
+- Use only the top and bottom padding setting above the first cards on phones ([`9200b9f`](https://github.com/pablonagy/ha-hearth/commit/9200b9f))
+
+### Fixed
+
+- Stop a page that fits the screen from scrolling because of the edit buttons under it ([`9200b9f`](https://github.com/pablonagy/ha-hearth/commit/9200b9f))
+
 ## [0.7.8] - 2026-10-11
 
 ### Changed
@@ -311,6 +322,7 @@
 
 - Make blur work everywhere in the application
 
+[0.7.9]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.9
 [0.7.8]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.8
 [0.7.7]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.7
 [0.7.6]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.6

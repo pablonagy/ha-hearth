@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.8] - 2026-10-11
+
+### Changed
+
+- Pick a light's colour on a full colour wheel, with eight true colour presets that match what the light gives off ([`875f79d`](https://github.com/pablonagy/ha-hearth/commit/875f79d))
+
 ## [0.7.7] - 2026-10-11
 
 ### Fixed
@@ -305,6 +311,7 @@
 
 - Make blur work everywhere in the application
 
+[0.7.8]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.8
 [0.7.7]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.7
 [0.7.6]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.6
 [0.7.5]: https://github.com/pablonagy/ha-hearth/releases/tag/0.7.5

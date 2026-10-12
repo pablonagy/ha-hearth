@@ -5,16 +5,16 @@
 	import type { SliderUpdateMode } from '$lib/core/app/configuration';
 	import Ripple from '$lib/ui/actions/ripple';
 	import { PRESS_RIPPLE } from './config';
-	import { SWATCH_COLORS } from '$lib/core/theme';
 	import { horizontalDrag } from './drag';
 	import { callEntityService, controlOverrides, markPending } from '$lib/core/ha/commands';
 	import {
-		hexToRgb,
+		lightHsFor,
 		lightViewFor,
-		setLightColor,
+		setLightHs,
 		setLightLevel,
 		setLightTemp
 	} from '$lib/core/domains/light';
+	import HueWheel from './HueWheel.svelte';
 	import PopupSlider from './PopupSlider.svelte';
 	import { pressFeedback } from './pressFeedback';
 
@@ -60,12 +60,30 @@
 		markPending(entity);
 	}
 
-	function swatchSelected(swatch: string) {
-		if (!view.colorCss) return false;
-		const current = view.colorCss.match(/\d+/g)?.map(Number);
-		if (!current) return false;
-		const target = hexToRgb(swatch);
-		return current.every((channel, index) => Math.abs(channel - target[index]) <= 15);
+	// true, fully saturated colours, sent as hue and saturation and drawn as
+	// the light emits them
+	const COLOR_PRESETS = [
+		{ hue: 0, name: 'hearth_color_red' },
+		{ hue: 30, name: 'hearth_color_orange' },
+		{ hue: 52, name: 'hearth_color_yellow' },
+		{ hue: 120, name: 'hearth_color_green' },
+		{ hue: 185, name: 'hearth_color_cyan' },
+		{ hue: 230, name: 'hearth_color_blue' },
+		{ hue: 275, name: 'hearth_color_purple' },
+		{ hue: 320, name: 'hearth_color_pink' }
+	];
+
+	let hs = $derived(lightHsFor(entity, $states, $controlOverrides));
+
+	function presetSelected(hue: number) {
+		if (!hs || hs[1] < 75) return false;
+		const distance = Math.abs(((hs[0] - hue + 540) % 360) - 180);
+		return distance <= 10;
+	}
+
+	function selectColor(hue: number, saturation: number, commit = true) {
+		tabChoice = 'color';
+		setLightHs(entity, hue, saturation, commit);
 	}
 </script>
 
@@ -149,19 +167,20 @@
 		<span>{$lang('hearth_daylight')}</span>
 	</div>
 {:else if mode === 'color'}
+	<HueWheel hue={hs?.[0]} saturation={hs?.[1]} onchange={selectColor} />
 	<div class="swatches">
-		{#each SWATCH_COLORS as swatch (swatch)}
+		{#each COLOR_PRESETS as preset (preset.hue)}
 			<div
 				class="swatch pressable"
-				class:selected={swatchSelected(swatch)}
-				style:background={swatch}
+				class:selected={presetSelected(preset.hue)}
+				style:background="hsl({preset.hue} 100% 50%)"
 				use:pressFeedback={entity}
-				onclick={() => setLightColor(entity, swatch)}
+				onclick={() => selectColor(preset.hue, 100)}
 				role="button"
 				tabindex="0"
-				aria-label={`${$lang('color')} ${swatch}`}
-				aria-pressed={swatchSelected(swatch)}
-				onkeydown={(event) => activateOnKeyboard(event, () => setLightColor(entity, swatch))}
+				aria-label={$lang(preset.name)}
+				aria-pressed={presetSelected(preset.hue)}
+				onkeydown={(event) => activateOnKeyboard(event, () => selectColor(preset.hue, 100))}
 			></div>
 		{/each}
 	</div>
@@ -286,15 +305,16 @@
 
 	.swatches {
 		display: flex;
-		gap: 10px;
+		gap: 8px;
+		margin-top: 16px;
 	}
 
+	/* full strength: a swatch shows the colour the light will give off */
 	.swatch {
 		flex: 1;
-		height: 44px;
+		height: 36px;
 		border-radius: var(--h-radius-sm);
 		cursor: pointer;
-		opacity: 0.85;
 	}
 
 	.swatch.selected {

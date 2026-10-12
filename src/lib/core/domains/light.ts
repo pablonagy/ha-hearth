@@ -101,6 +101,44 @@ export function setLightTemp(entityId: string, pct: number, commit = true) {
 	);
 }
 
+/** Hue (0-360) and saturation (0-100) of a light in a colour mode, else undefined. */
+export function lightHsFor(
+	entityId: string,
+	$states: HassEntities | undefined,
+	$overrides: Record<string, number>
+): [number, number] | undefined {
+	const hueOverride = $overrides[`hue:${entityId}`];
+	const satOverride = $overrides[`sat:${entityId}`];
+	if (hueOverride !== undefined && satOverride !== undefined) return [hueOverride, satOverride];
+	const attributes = $states?.[entityId]?.attributes ?? {};
+	const hs = attributes.hs_color;
+	if (attributes.color_mode === 'color_temp' || attributes.color_mode === 'white') return undefined;
+	return Array.isArray(hs) && hs.length === 2 ? [Number(hs[0]), Number(hs[1])] : undefined;
+}
+
+/**
+ * Sets a light's colour as hue and saturation, the colour space the light
+ * itself works in, so what is picked is what it emits. A drag sends at most
+ * a few updates a second and always its final value.
+ */
+export function setLightHs(entityId: string, hue: number, saturation: number, commit = true) {
+	if (!entityControllable(get(states)?.[entityId])) return;
+	const h = ((hue % 360) + 360) % 360;
+	const s = clamp(saturation, 0, 100);
+	setControlOverride(`hue:${entityId}`, h, 1500);
+	setControlOverride(`sat:${entityId}`, s, 1500);
+	if (!commit) return;
+	throttled(
+		`hs:${entityId}`,
+		() =>
+			service('light', 'turn_on', {
+				entity_id: entityId,
+				hs_color: [Math.round(h * 10) / 10, Math.round(s * 10) / 10]
+			}),
+		250
+	);
+}
+
 export function setLightColor(entityId: string, hex: string) {
 	if (!entityControllable(get(states)?.[entityId])) return;
 	markPending(entityId);

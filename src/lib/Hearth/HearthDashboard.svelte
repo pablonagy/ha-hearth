@@ -389,6 +389,7 @@
 		<main
 			class="main"
 			class:fill={activeRoom?.fill_screen && !showFavorites}
+			class:entry-inline={inlineEditEntry && !$narrow && !$hearthEditMode}
 			bind:this={mainElement}
 			use:scrollEdges={{ report: (edges) => (mainCut = edges) }}
 			use:swipeNav={{
@@ -715,6 +716,14 @@
 	}
 
 	/* with no rail the floating edit toggle sits over the foot of the page */
+	/* the edit buttons follow the page here: its height leaves room for them,
+	   their 24px margin, 44px row and the bottom padding (see EditToggle) */
+	.main.entry-inline {
+		--h-page-reserve: calc(
+			68px + var(--h-pad-y) + var(--h-safe-bottom)
+		); /* literal ok: edit buttons' margin and row height */
+	}
+
 	.layout:not(.narrow)[data-rail='none'] .main {
 		padding-bottom: 8px; /* literal ok: the edit buttons scroll with the page here */
 	}
@@ -781,7 +790,7 @@
 	/* no page switcher to carry the top inset: the layout keeps the same room
 	   above the first card as it does below the last */
 	.layout.narrow.no-strip {
-		padding-top: calc(16px + var(--h-pad-y) + var(--h-safe-top));
+		padding-top: calc(var(--h-pad-y) + var(--h-safe-top));
 		scroll-padding-top: calc(16px + var(--h-safe-top));
 	}
 

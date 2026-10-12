@@ -86,7 +86,14 @@
 	.page {
 		display: flex;
 		flex-direction: column;
-		min-height: 100%;
+		/* on a wide monitor the columns would stretch edge to edge; past this
+		   width the page stays one centred column of reading width */
+		width: 100%;
+		max-width: var(--h-page-max-width, 1200px); /* literal ok: page reading width */
+		margin-inline: auto;
+		/* leaves room for whatever the layout puts under the page (the edit
+		   buttons at its end), so a page that fits does not scroll */
+		min-height: calc(100% - var(--h-page-reserve, 0px));
 		/* the card columns collapse on the page's real width, not the viewport:
 		   the rail already took its share, so a viewport breakpoint would fold
 		   multi-column pages long before they actually run out of room */

@@ -199,6 +199,10 @@
 	/* in the page's flow: after the last card, scrolled to like any of them */
 	.edit-entry.inline {
 		position: static;
+		/* lines up with the page's centred column on wide screens */
+		width: 100%;
+		max-width: var(--h-page-max-width, 1200px); /* literal ok: page reading width */
+		margin-inline: auto;
 		margin-top: 24px;
 		padding-bottom: calc(var(--h-pad-y) + var(--h-safe-bottom));
 	}

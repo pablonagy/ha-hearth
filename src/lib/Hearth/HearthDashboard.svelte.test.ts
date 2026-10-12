@@ -147,11 +147,14 @@ describe('HearthDashboard navigation', () => {
 		const entry = () => container.querySelector('.edit-entry');
 		expect(entry()?.classList.contains('inline')).toBe(true);
 		expect(entry()?.closest('.main')).not.toBeNull();
+		// the page leaves room for them, so a page that fits does not scroll
+		expect(container.querySelector('.main')?.classList.contains('entry-inline')).toBe(true);
 
 		// beside a rail they stay at its foot, clear of the cards
 		await act(() => hearthConfig.set(withRooms([{ id: 'clock', type: 'clock' }])));
 		expect(entry()?.classList.contains('inline')).toBe(false);
 		expect(entry()?.closest('.main')).toBeNull();
+		expect(container.querySelector('.main')?.classList.contains('entry-inline')).toBe(false);
 	});
 
 	it('builds the page list into a wide rail that has no visible nav widget', async () => {
